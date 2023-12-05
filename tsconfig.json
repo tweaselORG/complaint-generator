@@ -2,6 +2,9 @@
     "extends": "@baltpeter/tsconfig",
     "include": ["src/**/*"],
     "exclude": ["**/*.tmp.ts"],
+    "compilerOptions": {
+        "resolveJsonModule": true
+    },
     "typedocOptions": {
         "plugin": ["typedoc-plugin-markdown"],
         "entryPoints": ["src/index.ts"],

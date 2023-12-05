@@ -185,6 +185,18 @@
   resolved "https://registry.yarnpkg.com/@msgpackr-extract/msgpackr-extract-win32-x64/-/msgpackr-extract-win32-x64-3.0.2.tgz#0f164b726869f71da3c594171df5ebc1c4b0a407"
   integrity sha512-O+6Gs8UeDbyFpbSh2CPEz/UOrrdWPTBYNblZK5CxxLisYt4kGX3Sc+czffFonyjiGSq3jWLwJS/CCJc7tBr4sQ==
 
+"@myriaddreamin/typst-ts-web-compiler@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@myriaddreamin/typst-ts-web-compiler/-/typst-ts-web-compiler-0.4.1.tgz#02c0e5cae68d918207a830ea82f6b99d14682dab"
+  integrity sha512-k446Y7+JEUaOtHWSwgDt799NFMJJnqw8Rg+H44roT5qI9gLHp31+Up86FpGDKNm21d7sFxqEw2xWwLlclf2tvw==
+
+"@myriaddreamin/typst.ts@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@myriaddreamin/typst.ts/-/typst.ts-0.4.1.tgz#7462be15631137ba3770dd42432006bb7bd2f172"
+  integrity sha512-hNkVeQaqYEt6xSuTxbDzvm0f3KkymbTGpQv6QsYyCUsa/xBzijyDN9pspW+TA+H5f9u+x1GmmGgn3bZojrHttg==
+  dependencies:
+    idb "^7.1.1"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -996,6 +1008,11 @@
   integrity sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==
   dependencies:
     "@types/ms" "*"
+
+"@types/har-format@^1.2.15":
+  version "1.2.15"
+  resolved "https://registry.yarnpkg.com/@types/har-format/-/har-format-1.2.15.tgz#f352493638c2f89d706438a19a9eb300b493b506"
+  integrity sha512-RpQH4rXLuvTXKR0zqHq3go0RVXYv/YVqv4TnPH95VbwUxZdQlK1EtcMvQvMpDngHbt13Csh9Z4qT9AbkiQH5BA==
 
 "@types/json-schema@^7.0.9":
   version "7.0.15"
@@ -2323,6 +2340,11 @@ hasown@^2.0.0:
   dependencies:
     function-bind "^1.1.2"
 
+hexy@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/hexy/-/hexy-0.3.5.tgz#adcd5ee47d66aca3581d771743a509a5176e45f9"
+  integrity sha512-UCP7TIZPXz5kxYJnNOym+9xaenxCLor/JyhKieo8y8/bJWunGh9xbhy3YrgYJUQ87WwfXGm05X330DszOfINZw==
+
 htmlnano@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/htmlnano/-/htmlnano-2.1.0.tgz#67b31b3cd3fad23f0b610ca628fdb48382209c3c"
@@ -2367,6 +2389,11 @@ husky@4.3.7:
     please-upgrade-node "^3.2.0"
     slash "^3.0.0"
     which-pm-runs "^1.0.0"
+
+idb@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/idb/-/idb-7.1.1.tgz#d910ded866d32c7ced9befc5bfdf36f572ced72b"
+  integrity sha512-gchesWBzyvGHRO9W8tzUWFDycow5gwjvFKfyV9FF32Y7F50yZMp7mP+T2mJIWFx49zicqyC4uefHM17o6xKIVQ==
 
 ignore@^5.0.5, ignore@^5.2.0, ignore@^5.2.4:
   version "5.3.0"
@@ -3594,7 +3621,7 @@ safe-array-concat@^1.0.1:
     has-symbols "^1.0.3"
     isarray "^2.0.5"
 
-safe-buffer@^5.0.1:
+safe-buffer@^5.0.1, safe-buffer@^5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
   integrity sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==
