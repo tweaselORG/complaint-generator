@@ -92,7 +92,15 @@ export const generate = async (options: GenerateOptions) => {
 
     cc.addSource(mainFilePath, typSource);
     if (options.type === 'report')
-        cc.addSource('/har.typ', generateTypForHar(harEntries, { includeResponses: false, truncateContent: 2000 }));
+        cc.addSource(
+            '/har.typ',
+            generateTypForHar(
+                harEntries
+                    .map((e, index) => ({ ...e, index }))
+                    .filter((e) => trackHarResult.some((r) => r.harIndex === e.index)),
+                { includeResponses: false, truncateContent: 4096 }
+            )
+        );
 
     return await cc.compile({ mainFilePath, format: 'pdf' });
 };

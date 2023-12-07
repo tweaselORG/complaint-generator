@@ -57,6 +57,6 @@ TODO
 
 = Recorded traffic <har2pdf>
 
-Below is a reproduction of the recorded network requests as documented in the attached HAR file. Only requests are shown, all responses are omitted. Binary request content is represented as a hexdump. Request content longer than 2,000 bytes is truncated. The full recorded traffic, including responses and full request content, can be seen the in attached HAR file.
+Below is a reproduction of the recorded network requests that are mentioned in the report as documented in the attached HAR file. Only requests are shown, all responses are omitted. Binary request content is represented as a hexdump. Request content longer than 4,096 bytes is truncated. The full recorded traffic with all requests and including responses and full request content can be seen the in attached HAR file.
 
 #include "har.typ"

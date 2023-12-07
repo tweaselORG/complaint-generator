@@ -24,7 +24,7 @@ export type RenderOptions = {
     includeResponses?: boolean;
 };
 
-export const generateTyp = (entries: HarEntry[], options?: RenderOptions) => {
+export const generateTyp = (entries: (HarEntry & { index?: number })[], options?: RenderOptions) => {
     const translation = translations[options?.language ?? 'en'];
     if (!translation) throw new Error(`Unsupported language: ${options?.language}`);
     const _ = getTranslator(translation, translationsEn);
@@ -92,13 +92,14 @@ ${
 #show heading.where(level: 4): it => text(weight: "regular", style: "italic", it)
 
 ${entries
-    .map(
-        (r, i) => `
-== ${$(r.request.method + ' ' + r.request.host)} (${renderDate(r.startTime)}) <har2pdf-e${i}>
+    .map((r, i) => {
+        const index = r.index ?? i;
+        return `
+== ${$(r.request.method + ' ' + r.request.host)} (${renderDate(r.startTime)}) <har2pdf-e${index}>
 
-=== ${_('har.request')} <har2pdf-e${i}-req>
+=== ${_('har.request')} <har2pdf-e${index}-req>
 
-==== ${_('har.general')} <har2pdf-e${i}-req-general>
+==== ${_('har.general')} <har2pdf-e${index}-req-general>
 
 / ${_('har.method')}: ${$(r.request.method)}
 / ${_('har.http-version')}: ${$(r.request.httpVersion)} #v(0.8em)
@@ -107,7 +108,7 @@ ${entries
 / ${_('har.file-name')}: ${$(r.request.pathWithoutQuery)}
 ${r.request.port ? `/ ${_('har.port')}: ${$(r.request.port)}` : ''}
 
-==== ${_('har.query-params')} <har2pdf-e${i}-req-query-params>
+==== ${_('har.query-params')} <har2pdf-e${index}-req-query-params>
 
 ${
     r.request.queryParams.length > 0
@@ -115,44 +116,44 @@ ${
         : `_${_('har.none')}_`
 }
 
-==== ${_('har.headers')} <har2pdf-e${i}-req-headers>
+==== ${_('har.headers')} <har2pdf-e${index}-req-headers>
 
 ${renderHeaders(r.request.headers)}
 
-==== ${_('har.cookies')} <har2pdf-e${i}-req-cookies>
+==== ${_('har.cookies')} <har2pdf-e${index}-req-cookies>
 
 ${renderCookies(r.request.cookies)}
 
-==== ${_('har.content')} <har2pdf-e${i}-req-content>
+==== ${_('har.content')} <har2pdf-e${index}-req-content>
 
 ${renderContent(r.request.content)}
 
 ${
     options?.includeResponses !== false
         ? `
-=== ${_('har.response')} <har2pdf-e${i}-res>
+=== ${_('har.response')} <har2pdf-e${index}-res>
 
-==== ${_('har.general')} <har2pdf-e${i}-res-general>
+==== ${_('har.general')} <har2pdf-e${index}-res-general>
 
 / ${_('har.status')}: ${$(r.response.status + ' ' + r.response.statusText)}
 / ${_('har.http-version')}: ${$(r.response.httpVersion)}
 
-==== ${_('har.headers')} <har2pdf-e${i}-res-headers>
+==== ${_('har.headers')} <har2pdf-e${index}-res-headers>
 
 ${renderHeaders(r.response.headers)}
 
-==== ${_('har.cookies')} <har2pdf-e${i}-res-cookies>
+==== ${_('har.cookies')} <har2pdf-e${index}-res-cookies>
 
 ${renderCookies(r.response.cookies)}
 
-==== ${_('har.content')} <har2pdf-e${i}-res-content>
+==== ${_('har.content')} <har2pdf-e${index}-res-content>
 
 ${renderContent(r.response.content)}
           `
         : ''
 }
-`
-    )
+`;
+    })
     .join('\n')}
 `;
 };
