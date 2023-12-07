@@ -1,7 +1,7 @@
 {
     "name": "complaint-generator",
     "version": "0.0.0",
-    "description": "TODO",
+    "description": "Library for generating technical reports, notices, and GDPR complaints concerning tracking by mobile apps for the tweasel project.",
     "bugs": "https://github.com/tweaselORG/complaint-generator/issues",
     "repository": {
         "type": "git",
