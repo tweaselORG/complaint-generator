@@ -89,7 +89,7 @@ ${
     return `
 #show raw: t => for c in t.text [#c.replace(c, c + sym.zws)]
 #set heading(numbering: "1.")
-#show heading.where(level: 3): it => text(weight: "regular", style: "italic", it)
+#show heading.where(level: 4): it => text(weight: "regular", style: "italic", it)
 
 ${entries
     .map(
@@ -170,3 +170,5 @@ export const har2Pdf = async (har: Har, options?: RenderOptions) => {
 
     return await cc.compile({ mainFilePath, format: 'pdf' });
 };
+
+export { unhar, type HarEntry };
