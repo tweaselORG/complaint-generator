@@ -93,12 +93,12 @@ ${
 
 ${entries
     .map(
-        (r) => `
-== ${$(r.request.method + ' ' + r.request.host)} (${renderDate(r.startTime)})
+        (r, i) => `
+== ${$(r.request.method + ' ' + r.request.host)} (${renderDate(r.startTime)}) <har2pdf-e${i}>
 
-=== ${_('har.request')}
+=== ${_('har.request')} <har2pdf-e${i}-req>
 
-==== ${_('har.general')}
+==== ${_('har.general')} <har2pdf-e${i}-req-general>
 
 / ${_('har.method')}: ${$(r.request.method)}
 / ${_('har.http-version')}: ${$(r.request.httpVersion)} #v(0.8em)
@@ -107,7 +107,7 @@ ${entries
 / ${_('har.file-name')}: ${$(r.request.pathWithoutQuery)}
 ${r.request.port ? `/ ${_('har.port')}: ${$(r.request.port)}` : ''}
 
-==== ${_('har.query-params')}
+==== ${_('har.query-params')} <har2pdf-e${i}-req-query-params>
 
 ${
     r.request.queryParams.length > 0
@@ -115,37 +115,37 @@ ${
         : `_${_('har.none')}_`
 }
 
-==== ${_('har.headers')}
+==== ${_('har.headers')} <har2pdf-e${i}-req-headers>
 
 ${renderHeaders(r.request.headers)}
 
-==== ${_('har.cookies')}
+==== ${_('har.cookies')} <har2pdf-e${i}-req-cookies>
 
 ${renderCookies(r.request.cookies)}
 
-==== ${_('har.content')}
+==== ${_('har.content')} <har2pdf-e${i}-req-content>
 
 ${renderContent(r.request.content)}
 
 ${
     options?.includeResponses !== false
         ? `
-=== ${_('har.response')}
+=== ${_('har.response')} <har2pdf-e${i}-res>
 
-==== ${_('har.general')}
+==== ${_('har.general')} <har2pdf-e${i}-res-general>
 
 / ${_('har.status')}: ${$(r.response.status + ' ' + r.response.statusText)}
 / ${_('har.http-version')}: ${$(r.response.httpVersion)}
 
-==== ${_('har.headers')}
+==== ${_('har.headers')} <har2pdf-e${i}-res-headers>
 
 ${renderHeaders(r.response.headers)}
 
-==== ${_('har.cookies')}
+==== ${_('har.cookies')} <har2pdf-e${i}-res-cookies>
 
 ${renderCookies(r.response.cookies)}
 
-==== ${_('har.content')}
+==== ${_('har.content')} <har2pdf-e${i}-res-content>
 
 ${renderContent(r.response.content)}
           `
