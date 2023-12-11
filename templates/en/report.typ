@@ -27,7 +27,7 @@ In total, there were {{ trackHarResult.length }} requests detected that transmit
 {% for adapterSlug, adapterResult in findings %}
 === {{ adapterSlug }} (TODO: nicer title)
 
-The app sent the following {{ adapterResult.requests.length }} requests to the tracker "{{ adapterSlug }}" (TODO: nicer title) (TODO: tracker URL), operated by "{{ adapterResult.adapter.tracker.name }}".
+The app sent the following {{ adapterResult.requests.length }} requests to the tracker "{{ adapterSlug }}" (TODO: nicer title) (TODO: tracker URL), operated by "{{ adapterResult.adapter.tracker.name }}". For details on how the requests to this tracker were decoded and the reasoning for how the transmitted information was determined, see the documentation in the Tweasel Tracker Wiki#footnote[The documentation for "{{ adapterSlug }}" (TODO: nicer title) is available at: https://trackers.tweasel.org/t/{{ adapterSlug }}].
 
 {% for request in adapterResult.requests %}
 {% set harEntry = harEntries[request.harIndex] %}
