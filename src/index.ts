@@ -60,13 +60,20 @@ export const generate = async (options: GenerateOptions) => {
         {}
     );
 
-    const nunjucks = Nunjucks.configure({ autoescape: false, throwOnUndefined: true });
+    const nunjucks = Nunjucks.configure({ autoescape: true, throwOnUndefined: true });
     nunjucks.addFilter('dateFormat', (date: Date | string | undefined) =>
         date ? new Date(date).toLocaleString(options.language, { dateStyle: 'long', timeStyle: 'long' }) : undefined
     );
     nunjucks.addFilter('timeFormat', (date: Date | string | undefined) =>
         date ? new Date(date).toLocaleTimeString(options.language) : undefined
     );
+    // Wrap content in a raw/code block, properly escaping user input.
+    nunjucks.addFilter(
+        'code',
+        (s: string | undefined) =>
+            new Nunjucks.runtime.SafeString(s === undefined ? '' : `\`\`\` ${(s + '').replace(/`/g, '`\u200b')}\`\`\``)
+    );
+    // Translate.
     nunjucks.addGlobal(
         't',
         (key: keyof (typeof translations)['en']) => (

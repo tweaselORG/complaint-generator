@@ -33,7 +33,7 @@ export const generateTyp = (entries: (HarEntry & { index?: number })[], options?
      * Wrap content in a raw/code block, properly escaping user input (cf.
      * https://github.com/tweaselORG/meta/issues/42#issuecomment-1838486416).
      */
-    const $ = (s: string | undefined) => (s === undefined ? '' : `\`\`\` ${s.replace(/`/g, '\u200b`')} \`\`\``);
+    const $ = (s: string | undefined) => (s === undefined ? '' : `\`\`\` ${s.replace(/`/g, '`\u200b')}\`\`\``);
 
     const renderDate = (date: Date | string | undefined) => (date ? new Date(date).toISOString() : undefined);
     const renderHeaders = (headers: Header[] | undefined) =>

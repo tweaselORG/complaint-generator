@@ -16,7 +16,7 @@ The analysis was performed on {{ analysisMeta.analysisDate | dateFormat }} on ve
 
 = Findings
 
-During the analysis, the network traffic initiated by the app was recorded. In total, {{ harEntries.length }} requests were recorded between {{ harEntries[0].startTime | dateFormat }} and {{ harEntries[harEntries.length - 1].startTime | dateFormat }}. The recorded traffic is attached as a HAR file{{ " (MD5 checksum of the HAR file: `" + analysisMeta.harMd5 + "`)" if analysisMeta.harMd5 }}, a standard format used by HTTP(S) monitoring tools to export collected data.#footnote[#link("http://www.softwareishard.com/blog/har-12-spec/")] HAR files can be viewed using Firefox or Chrome, for example.#footnote[TODO: https://github.com/tweaselORG/docs.tweasel.org/issues/7] The contents of the recorded traffic are also reproduced in @har2pdf[Appendix]
+During the analysis, the network traffic initiated by the app was recorded. In total, {{ harEntries.length }} requests were recorded between {{ harEntries[0].startTime | dateFormat }} and {{ harEntries[harEntries.length - 1].startTime | dateFormat }}. The recorded traffic is attached as a HAR file{% if analysisMeta.harMd5 %} (MD5 checksum of the HAR file: {{ analysisMeta.harMd5 | code }}){% endif %}, a standard format used by HTTP(S) monitoring tools to export collected data.#footnote[#link("http://www.softwareishard.com/blog/har-12-spec/")] HAR files can be viewed using Firefox or Chrome, for example.#footnote[TODO: https://github.com/tweaselORG/docs.tweasel.org/issues/7] The contents of the recorded traffic are also reproduced in @har2pdf[Appendix]
 
 == Network traffic without any interaction
 
@@ -27,18 +27,18 @@ In total, there were {{ trackHarResult.length }} requests detected that transmit
 {% for adapterSlug, adapterResult in findings %}
 === {{ adapterSlug }} (TODO: nicer title)
 
-The app sent the following {{ adapterResult.requests.length }} requests to the tracker "{{ adapterSlug }}" (TODO: nicer title) (TODO: tracker URL), operated by "{{ adapterResult.adapter.tracker.name }}". For details on how the requests to this tracker were decoded and the reasoning for how the transmitted information was determined, see the documentation in the Tweasel Tracker Wiki#footnote[The documentation for "{{ adapterSlug }}" (TODO: nicer title) is available at: https://trackers.tweasel.org/t/{{ adapterSlug }}].
+The app sent the following {{ adapterResult.requests.length }} requests to the tracker "{{ adapterSlug }}" (TODO: nicer title) (TODO: tracker URL), operated by "{{ adapterResult.adapter.tracker.name }}". For details on how the requests to this tracker were decoded and the reasoning for how the transmitted information was determined, see the documentation in the Tweasel Tracker Wiki#footnote[The documentation for "{{ adapterSlug }}" (TODO: nicer title) is available at: #link("https://trackers.tweasel.org/t/{{ adapterSlug | safe }}")].
 
 {% for request in adapterResult.requests %}
 {% set harEntry = harEntries[request.harIndex] %}
-==== `{{ harEntry.request.method }}` request to `{{ harEntry.request.host }}` ({{ harEntry.startTime | timeFormat }})
+==== {{ harEntry.request.method | code }} request to {{ harEntry.request.host | code }} ({{ harEntry.startTime | timeFormat }})
 
-On {{ harEntry.startTime | dateFormat }}, the app sent a `{{ harEntry.request.method }}` request to `{{ harEntry.request.host }}`. This request is reproduced in @har2pdf-e{{ request.harIndex }}[Appendix].
+On {{ harEntry.startTime | dateFormat }}, the app sent a {{ harEntry.request.method | code }} request to {{ harEntry.request.host | code }}. This request is reproduced in @har2pdf-e{{ request.harIndex | safe }}[Appendix].
 
 The following information was detected as being transmitted through this request:
 
 {% for transmission in request.transmissions -%}
-+ {{ t("data-path-property-" + transmission.property.toLowerCase()) }} (transmitted as `{{ transmission.path }}` with the value `{{ transmission.value }}`)
++ {{ t("data-path-property-" + transmission.property.toLowerCase()) }} (transmitted as {{ transmission.path | code }} with the value {{ transmission.value | code }})
 {% endfor %}
 {% endfor %}
 {% endfor %}
