@@ -9,6 +9,7 @@ import { translations } from './translations';
 const templates = {
     en: {
         report: readFileSync(new URL('../templates/en/report.typ', import.meta.url), 'utf-8'),
+        style: readFileSync(new URL('../templates/en/style.typ', import.meta.url), 'utf-8'),
     },
 };
 
@@ -98,6 +99,7 @@ export const generate = async (options: GenerateOptions) => {
     await cc.init({ beforeBuild: [] });
 
     cc.addSource(mainFilePath, typSource);
+    cc.addSource('/style.typ', templates[options.language].style);
     if (options.type === 'report')
         cc.addSource(
             '/har.typ',

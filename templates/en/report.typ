@@ -1,10 +1,5 @@
-#set page(numbering: (current, total) => "Page " + str(current) + " of " + str(total), number-align: end)
-#set text(font: "Linux Libertine", size: 12pt, lang: "en")
-#set heading(numbering: "1.1.")
-#show heading.where(level: 4): it => text(weight: "regular", style: "italic", it)
-#show link: underline
-#set text(hyphenate: true)
-#set enum(numbering: "a.")
+#import "style.typ": tweaselStyle
+#show: tweaselStyle
 
 #text(weight: 700, 1.75em)[Technical report: Analysis of {{ analysisMeta.platform }} app "{{ analysisMeta.appName }}"]
 
