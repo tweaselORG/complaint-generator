@@ -17,12 +17,12 @@ During the analysis, the network traffic initiated by the app was recorded. In t
 
 The requests described in this sections happened *without any interaction* with the app or any potential consent dialogs.
 
-In total, there were {{ trackHarResult.length }} requests detected that transmitted data to {{ findings | length }} trackers without any interaction.
+In total, there were {{ trackHarResult.length }} requests detected that transmitted data to {{ findings | length }} tracker(s) without any interaction.
 
 {% for adapterSlug, adapterResult in findings %}
 === {{ adapterSlug }} (TODO: nicer title)
 
-The app sent the following {{ adapterResult.requests.length }} requests to the tracker "{{ adapterSlug }}" (TODO: nicer title) (TODO: tracker URL), operated by "{{ adapterResult.adapter.tracker.name }}". For details on how the requests to this tracker were decoded and the reasoning for how the transmitted information was determined, see the documentation in the Tweasel Tracker Wiki#footnote[The documentation for "{{ adapterSlug }}" (TODO: nicer title) is available at: #link("https://trackers.tweasel.org/t/{{ adapterSlug | safe }}")].
+The app sent the following {{ adapterResult.requests.length }} request(s) to the tracker "{{ adapterSlug }}" (TODO: nicer title) (TODO: tracker URL), operated by "{{ adapterResult.adapter.tracker.name }}". For details on how the requests to this tracker were decoded and the reasoning for how the transmitted information was determined, see the documentation in the Tweasel Tracker Wiki#footnote[The documentation for "{{ adapterSlug }}" (TODO: nicer title) is available at: #link("https://trackers.tweasel.org/t/{{ adapterSlug | safe }}")].
 
 {% for request in adapterResult.requests %}
 {% set harEntry = harEntries[request.harIndex] %}

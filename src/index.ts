@@ -9,12 +9,13 @@ import { translations } from './translations';
 const templates = {
     en: {
         report: readFileSync(new URL('../templates/en/report.typ', import.meta.url), 'utf-8'),
+        notice: readFileSync(new URL('../templates/en/notice.typ', import.meta.url), 'utf-8'),
         style: readFileSync(new URL('../templates/en/style.typ', import.meta.url), 'utf-8'),
     },
 };
 
 export type GenerateOptions = {
-    type: 'report';
+    type: 'report' | 'notice';
     language: 'en';
 
     analysisMeta: {
@@ -43,23 +44,40 @@ export const generate = async (options: GenerateOptions) => {
                   { harIndex, adapter: transmissions[0]!.adapter, transmissions }
         )
         .filter((e): e is NonNullable<typeof e> => e !== null);
-    const findings = trackHarResult.reduce<Record<string, { adapter: Adapter; requests: typeof trackHarResult }>>(
-        (acc, req) => {
-            if (!acc[req.adapter]) {
-                const adapter = adapters.find((a) => a.tracker.slug + '/' + a.slug === req.adapter);
-                if (!adapter) throw new Error(`Unknown adapter: ${req.adapter}`);
-                acc[req.adapter] = {
-                    adapter,
-                    requests: [],
-                };
+    const findings = trackHarResult.reduce<
+        Record<
+            string,
+            { adapter: Adapter; requests: typeof trackHarResult; receivedData: Record<string, Array<string>> }
+        >
+    >((acc, req) => {
+        if (!acc[req.adapter]) {
+            const adapter = adapters.find((a) => a.tracker.slug + '/' + a.slug === req.adapter);
+            if (!adapter) throw new Error(`Unknown adapter: ${req.adapter}`);
+            acc[req.adapter] = {
+                adapter,
+                requests: [],
+                receivedData: {},
+            };
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        acc[req.adapter]!.requests.push(req);
+
+        for (const transmission of req.transmissions) {
+            if (!acc[req.adapter]?.receivedData[transmission.property]) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                acc[req.adapter]!.receivedData[transmission.property] = [];
             }
 
-            acc[req.adapter]?.requests.push(req);
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            acc[req.adapter]!.receivedData[transmission.property] = [
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                ...new Set([...acc[req.adapter]!.receivedData[transmission.property]!, transmission.value]),
+            ];
+        }
 
-            return acc;
-        },
-        {}
-    );
+        return acc;
+    }, {});
 
     const nunjucks = Nunjucks.configure({ autoescape: true, throwOnUndefined: true });
     nunjucks.addFilter('dateFormat', (date: Date | string | undefined) =>

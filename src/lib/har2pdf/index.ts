@@ -45,9 +45,9 @@ export const generateTyp = (entries: (HarEntry & { index?: number })[], options?
             ? `
         #table(
             columns: (auto, auto, auto, auto, auto, auto, auto),
-            [${_('har.name')}], [${_('har.value')}], [${_('har.path')}], [${_('har.domain')}], [${_(
+            [*${_('har.name')}*], [*${_('har.value')}*], [*${_('har.path')}*], [*${_('har.domain')}*], [*${_(
                   'har.expires'
-              )}], [${_('har.http-only')}], [${_('har.secure')}],
+              )}*], [*${_('har.http-only')}*], [*${_('har.secure')}*],
             ${cookies
                 .map(
                     (c) => `
