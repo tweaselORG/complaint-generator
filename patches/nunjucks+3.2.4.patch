@@ -1,0 +1,13 @@
+diff --git a/node_modules/nunjucks/src/lib.js b/node_modules/nunjucks/src/lib.js
+index 352acb5..d32aaab 100644
+--- a/node_modules/nunjucks/src/lib.js
++++ b/node_modules/nunjucks/src/lib.js
+@@ -120,7 +120,7 @@ if (Object.setPrototypeOf) {
+ }
+ _exports.TemplateError = TemplateError;
+ function escape(val) {
+-  return val.replace(escapeRegex, lookupEscape);
++  return val === undefined ? '' : `#{\`\`\` ${(val + '').replace(/`/g, '`\u200b')}\`\`\`.text}`
+ }
+ _exports.escape = escape;
+ function isFunction(obj) {

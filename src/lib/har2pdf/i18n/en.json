@@ -1,0 +1,29 @@
+{
+    "har": {
+        "none": "none",
+        "name": "Name",
+        "value": "Value",
+        "path": "Path",
+        "domain": "Domain",
+        "expires": "Expires",
+        "http-only": "HTTP only",
+        "secure": "Secure",
+        "file-name": "File name",
+        "content-type": "Content type",
+        "truncated-after": "truncated after",
+        "bytes": "bytes",
+        "request": "Request",
+        "general": "General",
+        "method": "Method",
+        "http-version": "HTTP version",
+        "scheme": "Scheme",
+        "host": "Host",
+        "port": "Port",
+        "query-params": "Query string parameters",
+        "headers": "Headers",
+        "cookies": "Cookies",
+        "content": "Content",
+        "response": "Response",
+        "status": "Status"
+    }
+}
